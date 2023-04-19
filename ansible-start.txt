@@ -1,0 +1,53 @@
+#-----------------------------------------------------------------------------------------
+#--------------------INTRODUCTION TO ANSIBLE BY ILYA RUDAKOV------------------------------
+#-----------------------------------------------------------------------------------------
+#
+#--------------------ANSIBLE INSTALL--------------------
+sudo apt-add-repository ppa:ansible/ansible                                #
+sudo apt update                                                            #
+sudo apt install ansible                                                   #
+sudo dnf install ansible                                                   #
+#--------------------ANSIBLE HOSTS--------------------
+vi /etc/hosts                                                              #
+#
+#--------------------INVENTORY--------------------
+cat > inventory
+[linux_servers]
+drweb ansible_host=192.168.200.102 ansible_ssh_user=isb ansible_ssh_pass=Gaz12345
+logger ansible_host=192.168.200.121 ansible_ssh_user=user ansible_ssh_pass=Gazprom!2345
+#
+#--------------------KEY CONNECTION--------------------
+#
+#--------------------WAY 1--------------------
+ssh-keygen -C "$(whoami)@$(hostname)-$(date -I)"                           #
+ssh-copy-id isb@192.168.200.102                                            #
+ssh-copy-id user@192.168.200.121                                           #
+#
+#--------------------WAY 2--------------------
+ssh-keygen                                                                 #
+[enter]                                                                    #
+[enter]                                                                    #
+[enter]                                                                    #
+cd ~/.ssh                                                                  #
+ssh-copy-id -i id_rsa.pub <$USER>@<IP HOST>                                #
+#
+#--------------------ANSIBLE ROLE--------------------
+mkdir */ansible/roles                                                      #
+cd */ansible/roles                                                         #
+ansible-galaxy init <rolename>                                             #
+#
+#--------------------CHECK HOSTS--------------------
+ansible <hosts> -m ping -i inventory -vv                                   # проверка доступности хостов модулем ping
+#
+#--------------------ANSIBLE KEY--------------------
+#ansible-playbook <playbook-name>.yml -b -k -K                             # это запрос на ввод паролей от SSH, от рута      
+#
+#--------------------ANSIBLE AD-HOCK--------------------
+ansible - i inventory.txt -m yum -a "name=httpd state=absent" -b           # удаление httpd
+#
+#--------------------ANSIBLE INFO--------------------
+# Модули Ansible идемпотентны.
+# Это означает, что модуль можно выполнять сколько угодно раз,
+  но при этом модуль будет выполнять изменения,
+  только если система не находится в желаемом состоянии.
+	

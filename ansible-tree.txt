@@ -1,0 +1,28 @@
+.                                          #
+├── ansible.cfg                            # путь до inventory, отмена fingerprint
+├── group_var                              # переменные групп хостов
+│   ├── ALL_SERVERS                        #
+│   ├── LINUX_SERVERS                      #
+│   ├── REDOS_SERVERS                      #
+│   ├── UBUNTU_SERVERS                     #
+│   └── WINDOWS_SERVERS                    #
+├── inventory.txt                          # хосты
+├── playbook.yml                           # имя, права рут, role
+└── role                                   # 
+    └── install_apt                        # роли
+        ├── defaults                       #
+        │   └── main.yml                   # переменные по умолчанию, которые будут переопределяться, н-р, версия ПО
+        ├── files                          # файлы, н-р, картинки
+        ├── handlers                       #
+        │   └── main.yml                   # обработчики событий
+        ├── meta                           #
+        │   └── main.yml                   # unknown
+        ├── README.md                      #
+        ├── tasks                          #
+        │   └── main.yml                   # все tasks
+        ├── templates                      # *.j2, для шаблонов, которые генерируют файлы на удаленных хостах
+        ├── tests                          #
+        │   ├── inventory                  # хосты
+        │   └── test.yml                   # 
+        └── vars                           #
+            └── main.yml                   # переменные, которые не будут переопределяться, н-р, имя пакета
