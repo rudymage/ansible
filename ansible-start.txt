@@ -16,6 +16,11 @@ cat > inventory
 drweb ansible_host=192.168.200.102 ansible_ssh_user=isb ansible_ssh_pass=Gaz12345
 logger ansible_host=192.168.200.121 ansible_ssh_user=user ansible_ssh_pass=Gazprom!2345
 #
+[linux_group:children]
+linux_servers
+linux_web
+linux_bd
+#
 #--------------------KEY CONNECTION--------------------
 #
 #--------------------WAY 1--------------------
